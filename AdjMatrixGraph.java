@@ -11,7 +11,7 @@ public class AdjMatrixGraph {
     private boolean[][] adj;
     
     //empty graph with V vertices
-    public AdjMatrixGraph(int V) {
+    public AdjMatrixGraph(int V, boolean complete) {
         if (V < 0) throw new RuntimeException("Number of vertices must be nonnegative");
         this.V = V;
         this.E = 0;
@@ -19,9 +19,8 @@ public class AdjMatrixGraph {
     }
 
     // Complete graph with V vertices
-    public AdjMatrixGraph(int V, int complete) {
-        this(V);
-	if(complete != 1) throw new RuntimeException("complete must be = 1 to make a complete graph");
+    public AdjMatrixGraph(int V) {
+        this(V, true);
 
 	int totalEdges = (V*(V-1))/2;
         // can be inefficient
@@ -100,9 +99,10 @@ public class AdjMatrixGraph {
     // test client
     public static void main(String[] args) {
         int V = Integer.parseInt(args[0]);
-        int C = Integer.parseInt(args[1]);
-        AdjMatrixGraph G = new AdjMatrixGraph(V, C);
+        AdjMatrixGraph G = new AdjMatrixGraph(V);
         System.out.println(G);
+	System.out.println("Coloring: ");
+	ColorMatrix c = new ColorMatrix(G);
     }
 
 }
