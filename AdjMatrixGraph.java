@@ -24,12 +24,12 @@ public class AdjMatrixGraph {
 
 	int totalEdges = (V*(V-1))/2;
         // can be inefficient
-	System.out.println(this.E);
 	for(int i = 0; i<V; i++)
 	    {
 		for(int j = 0; j<V; j++)
 		    {
 			if(i!=j) addEdge(i, j);
+			
 		    }
 	    }
     }
@@ -84,7 +84,7 @@ public class AdjMatrixGraph {
     public String toString() {
         String NEWLINE = System.getProperty("line.separator");
         StringBuilder s = new StringBuilder();
-        s.append(V + " " + E + NEWLINE);
+        s.append("V: "+V + " " + " E: "+E + NEWLINE);
         for (int v = 0; v < V; v++) {
             s.append(v + ": ");
             for (int w : adj(v)) {
@@ -106,7 +106,10 @@ public class AdjMatrixGraph {
 	Chromosome chr = new Chromosome(c);
 	c.printColoring();
 	int fit = chr.getFitness();
-	System.out.println("Number of same colored triangles: "+fit);
+	//System.out.println("Number of same colored triangles: "+fit);
+
+	Population pop = new Population(10, G.getVertices());
+	System.out.println(pop);
     }
 
 }
