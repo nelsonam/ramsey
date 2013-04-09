@@ -14,6 +14,10 @@ public class Chromosome
 
     public int getFitness()
     {
+	//the way I am doing it here is cool for 3,3 I guess but it
+	//is not easily modifiable. I want to do, say 5,5. How can we
+	//make this more flexible.
+
 	//all teh loops
 	for(int x=0; x<C.getGraph().getVertices(); x++)
 	    {
