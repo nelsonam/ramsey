@@ -14,9 +14,18 @@ public class Chromosome
 
     public int getFitness()
     {
-	//the way I am doing it here is cool for 3,3 I guess but it
-	//is not easily modifiable. I want to do, say 5,5. How can we
-	//make this more flexible.
+	//we really only need two loops
+	//loop one (i in 0-(V-n)) : V=vertices, n=n-clique
+	//loop two (j in 1-(V-(n-1))) 
+	//then each vertex after that is just j+1, j+2, j+3, ...
+
+	//eg 0 1 2 3 4
+	//   0 2 3 4 5
+	//   0 3 4 5 6
+	//   ...
+	//   1 2 3 4 5
+	//   1 3 4 5 6
+	//   ...
 
 	//all teh loops
 	for(int x=0; x<C.getGraph().getVertices(); x++)
