@@ -8,7 +8,10 @@ public class Population
 	pop = new ArrayList<Chromosome>();
 	for(int i=0; i<size; i++)
 	    {
-		pop.add(new Chromosome(G));
+		//make a new graph
+		//then a new coloring for that graph
+		//then add that coloring to the pop
+		//pop.add(new Chromosome(C));
 	    }
     }
 

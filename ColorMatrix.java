@@ -24,6 +24,14 @@ public class ColorMatrix {
 		    }		
 	    }
     }
+    public boolean[][] getColorMatrix()
+    {
+	return this.colors;
+    }
+    public AdjMatrixGraph getGraph()
+    {
+	return this.G;
+    }
 
     public boolean getColor(int x, int y)
     {
