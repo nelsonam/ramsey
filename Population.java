@@ -29,7 +29,7 @@ public class Population
 	String p="";
 	for(Chromosome c:pop)
 	    {
-		p+="Fitness for graph "+i+": "+c.getFitness();
+		p+="Fitness for graph "+i+": "+c.getFitness(5);
 		p+="\n";
 		i++;
 	    }

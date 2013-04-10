@@ -105,7 +105,7 @@ public class AdjMatrixGraph {
 	ColorMatrix c = new ColorMatrix(G);
 	Chromosome chr = new Chromosome(c);
 	c.printColoring();
-	int fit = chr.getFitness();
+	int fit = chr.getFitness(5);
 	//System.out.println("Number of same colored triangles: "+fit);
 
 	Population pop = new Population(10, G.getVertices());
