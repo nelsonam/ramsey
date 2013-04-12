@@ -35,4 +35,18 @@ public class Population
 	    }
 	return p;
     }
+
+    public Chromosome getChromosome(int index)
+    {
+	return pop.get(index);
+    }
+    public void addChromosome(int index, Chromosome c)
+    {
+	//if element at index exists replace it
+	if(pop.get(index) != null)
+	    pop.set(index, c);
+	//otherwise just add it
+	else
+	    pop.add(c);
+    }
 }

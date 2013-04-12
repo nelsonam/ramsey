@@ -38,6 +38,12 @@ public class ColorMatrix {
 	return colors[x][y];
     }
 
+    public void setColor(int x, int y, boolean color)
+    {
+	colors[x][y] = color;
+	colors[y][x] = color;
+    }
+
     public boolean isRed(int x, int y)
     {
 	//0 = red
