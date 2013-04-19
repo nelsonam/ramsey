@@ -7,6 +7,7 @@ to work on
   - instead of using the same set of edges to check fitness each time, generate `x` random ones
   - find a formula for this? (eg, getPerm(5) gives us the "5th" perm from our set of nums)
   - check here: http://stackoverflow.com/questions/1506078/fast-permutation-number-permutation-mapping-algorithms
+  - http://stackoverflow.com/questions/7918806/finding-n-th-permutation-without-computing-others
 - use the graph algorithm below one each set of random edges in our list
 - this will give us the fitness
   - first value: after the insert process
