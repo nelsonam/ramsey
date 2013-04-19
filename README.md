@@ -36,4 +36,44 @@ for(int i=0; i<vertices; i++)
 }
 ```
 
+
 if we have `leftcount` or `rightcount` > 4 (for R(5,5)) then that means that a 5 clique has been found somewhere. 
+
+here is the insert code:
+
+```java
+public Node insert(Node t, Node newOne)
+{
+  if(t==null)
+  {
+    leftcount++;
+    rightcount++;
+    return newOne;
+  }
+  else if(colorMatrix[t.value][newOne.value])
+  {
+    leftcount++;
+    insert(t.left, newOne);
+    return t;
+  }
+  else
+  {
+    rightcount++;
+    insert(t.right,newOne);
+    return t;
+  }
+}
+```
+
+use Node objects for inserting into the binary tree:
+```java
+public Node
+{
+  Node leftChild;
+  Node rightChild;
+  int value; //the number of the node (eg, vertex 9)
+}
+```
+
+Apr 15 : I derped up pretty hard so reset this code back a few commits (testing)
+
