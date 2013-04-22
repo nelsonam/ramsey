@@ -3,6 +3,7 @@
 
 import java.util.Iterator;
 import java.util.*;
+import java.math.*;
 
 
 public class AdjMatrixGraph {
@@ -39,11 +40,11 @@ public class AdjMatrixGraph {
     public int getVertices() { return this.V; }
     public int getEdges() { return this.E; }
 
-    public void initNodes()
+    public void initNodes(ColorMatrix C)
     {
 	for(int k=0; k<this.V; k++)
 	    {
-		nodes.add(new Node(k, this));
+		nodes.add(new Node(k, C));
 	    }
     }
 
@@ -98,33 +99,35 @@ public class AdjMatrixGraph {
 	//implementation adapted from 
 	//http://stackoverflow.com/questions/7918806/finding-n-th-permutation-without-computing-others
 	int j, k = 0;
-	int[] fact = new int[nodes.size()];
-	int[] perm = new int[nodes.size()];
+	//change this to BigInteger - factorials get really BIG!
+	BigInteger[] fact = new BigInteger[nodes.size()];
+	BigInteger[] perm = new BigInteger[nodes.size()];
        
 	ArrayList<Node> newperm = new ArrayList<Node>();
 
-	fact[k] = 1;
+	fact[k] = new BigInteger("1");
 	while(++k<nodes.size())
-	    fact[k] = fact[k-1]*k;
+	    fact[k] = fact[k-1].multiply(BigInteger.valueOf(k));
 
 	for(k=0;k<nodes.size(); ++k)
 	    {
-		perm[k] = index/fact[nodes.size()-1-k];
-		index = index%fact[nodes.size()-1-k];
+		perm[k] = BigInteger.valueOf(index).divide(fact[nodes.size()-1-k]);
+		index = (BigInteger.valueOf(index).mod(fact[nodes.size()-1-k])).intValue();
 	    }
 
 	for(k=nodes.size()-1; k>0; --k)
 	    {
 		for(j=k-1;j>=0; --j)
 		    {
-			if(perm[j]<=perm[k])
-			    perm[k]++;
+			//use compareTo == -1 or 0
+			if((perm[j].compareTo(perm[k])) <= 0) 
+			    perm[k].add(BigInteger.valueOf(1));
 		    }
 	    }
 	
 	for(k=0; k<nodes.size(); ++k)
 	    {
-		newperm.add(getNode(perm[k]));
+		newperm.add(getNode((perm[k]).intValue()));
 	    }
 	return newperm;
     }
@@ -148,11 +151,18 @@ public class AdjMatrixGraph {
 
     // test client
     public static void main(String[] args) {
+	//gets the number of vertices we want
         int V = Integer.parseInt(args[0]);
+	//makes a new graph object
         AdjMatrixGraph G = new AdjMatrixGraph(V);
+	//print the graph
         System.out.println(G);
 	System.out.println("\n");
-	G.initNodes();
+	//get a random coloring
+	ColorMatrix c = new ColorMatrix(G);
+	//make node objs for each vertex
+	G.initNodes(c);
+	//make sure we init'ed the nodes right
 	for(int a = 0; a<G.getVertices(); a++)
 	    {
 		System.out.print(G.getNode(a)+" ");
@@ -170,13 +180,17 @@ public class AdjMatrixGraph {
 	System.out.println("\n");
 
 	System.out.println("\nColoring: ");
-	ColorMatrix c = new ColorMatrix(G);
+	//make a new Chromosome (basically just a ColorMatrix)
 	Chromosome chr = new Chromosome(c);
+	//print our coloring
 	c.printColoring();
+	//get fitness (number of same colored cliques of size x (x is the parameter)
 	int fit = chr.getFitness(5);
 	//System.out.println("Number of same colored triangles: "+fit);
 
+	//make a new population
 	Population pop = new Population(10, G.getVertices());
+	//print the population
 	System.out.println(pop);
     }
 
