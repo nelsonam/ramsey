@@ -19,6 +19,10 @@ to work on
 -  implement the actual genetic algorithm part
 -  static var for clique size (prompt user) eg R(3,3) R(5,5) etc
 -  if there is a graph that gets a 0 fitness (no same colored cliques), save that graph somehow for further inspection
+- Node Changes
+  - we need to pass the graph G to the constructor of Node (needed for the insert operation, to look at the coloring)
+  - so since we need to pass in G, we can't init Nodes while we're making G
+  - add a method called initNodes() or something that is called after the graph is constructed
 
 the graph algorithm (McRae's idea)
 --------------
