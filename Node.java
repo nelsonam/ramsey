@@ -9,13 +9,16 @@ public class Node
     int leftCount;
     int rightCount;
 
-    public Node(int value)
+    AdjMatrixGraph G; //reference to the graph that this Node is in
+
+    public Node(int value, AdjMatrixGraph G)
     {
 	this.leftChild = null;
 	this.rightChild = null;
 	this.value = value;
 	this.leftCount = 0;
 	this.rightCount = 0;
+	this.G = G;
     }
     public int getValue()
     {

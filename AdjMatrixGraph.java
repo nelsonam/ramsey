@@ -33,17 +33,19 @@ public class AdjMatrixGraph {
 			if(i!=j) addEdge(i, j);
 		    }
 	    }
-
-	for(int k=0; k<V; k++)
-	    {
-		nodes.add(new Node(k));
-	    }
     }
 
     // number of vertices and edges
     public int getVertices() { return this.V; }
     public int getEdges() { return this.E; }
 
+    public void initNodes()
+    {
+	for(int k=0; k<this.V; k++)
+	    {
+		nodes.add(new Node(k, this));
+	    }
+    }
 
     // add undirected edge v-w
     public void addEdge(int v, int w) {
@@ -150,6 +152,7 @@ public class AdjMatrixGraph {
         AdjMatrixGraph G = new AdjMatrixGraph(V);
         System.out.println(G);
 	System.out.println("\n");
+	G.initNodes();
 	for(int a = 0; a<G.getVertices(); a++)
 	    {
 		System.out.print(G.getNode(a)+" ");
@@ -158,6 +161,7 @@ public class AdjMatrixGraph {
 	//get a random perm of the vertices here
 	Random rand = new Random();
 	//replace this 50 with the number of possible perms
+	// # of possible perms == V! (eg 5 vertices -> 5! perms)
 	ArrayList<Node> newperm = G.getPerm(rand.nextInt(50));
 	for(Node i:newperm)
 	    {
