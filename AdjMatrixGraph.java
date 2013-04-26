@@ -1,5 +1,5 @@
 // this code comes from http://algs4.cs.princeton.edu/41undirected/AdjMatrixGraph.java.html
-// I have made a few modifications to suit my needs
+// I have made modifications to suit my needs
 
 import java.util.Iterator;
 import java.util.*;
@@ -121,7 +121,7 @@ public class AdjMatrixGraph {
 		    {
 			//use compareTo == -1 or 0
 			if((perm[j].compareTo(perm[k])) <= 0) 
-			    perm[k].add(BigInteger.valueOf(1));
+			    perm[k] = perm[k].add(BigInteger.valueOf(1));
 		    }
 	    }
 	
