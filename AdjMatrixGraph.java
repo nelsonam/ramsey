@@ -94,7 +94,7 @@ public class AdjMatrixGraph {
     }
 
     //gets a permutation of the vertices referred to by index i
-    public ArrayList<Node> getPerm(int index)
+    public ArrayList<Node> getPerm(BigInteger index)
     {
 	//implementation adapted from 
 	//http://stackoverflow.com/questions/7918806/finding-n-th-permutation-without-computing-others
@@ -104,15 +104,14 @@ public class AdjMatrixGraph {
 	BigInteger[] perm = new BigInteger[nodes.size()];
        
 	ArrayList<Node> newperm = new ArrayList<Node>();
-
 	fact[k] = new BigInteger("1");
 	while(++k<nodes.size())
 	    fact[k] = fact[k-1].multiply(BigInteger.valueOf(k));
 
 	for(k=0;k<nodes.size(); ++k)
 	    {
-		perm[k] = BigInteger.valueOf(index).divide(fact[nodes.size()-1-k]);
-		index = (BigInteger.valueOf(index).mod(fact[nodes.size()-1-k])).intValue();
+		perm[k] = index.divide(fact[nodes.size()-1-k]);
+		index = index.mod(fact[nodes.size()-1-k]);
 	    }
 
 	for(k=nodes.size()-1; k>0; --k)
@@ -148,6 +147,14 @@ public class AdjMatrixGraph {
         return s.toString();
     }
 
+    public static BigInteger nextRandomBigInteger(BigInteger n) {
+	Random rand = new Random();
+	BigInteger result = new BigInteger(n.bitLength(), rand);
+	while( result.compareTo(n) >= 0 ) {
+	    result = new BigInteger(n.bitLength(), rand);
+	}
+	return result;
+    }
 
     // test client
     public static void main(String[] args) {
@@ -172,7 +179,23 @@ public class AdjMatrixGraph {
 	Random rand = new Random();
 	//replace this 50 with the number of possible perms
 	// # of possible perms == V! (eg 5 vertices -> 5! perms)
-	ArrayList<Node> newperm = G.getPerm(rand.nextInt(50));
+	int k=0;
+	BigInteger[] fact = new BigInteger[G.getVertices()+1];
+	fact[k] = new BigInteger("1");
+	while(++k<G.getVertices()+1)
+	    fact[k] = fact[k-1].multiply(BigInteger.valueOf(k));
+	
+	for(int i=0; i<G.getVertices()+1; i++)
+	    {
+		System.out.println(fact[i]);
+	    }
+	//ArrayList<Node> newperm = G.getPerm(rand.nextInt(fact[G.getVertices()].intValue()));
+
+	/////////make a big random value
+	BigInteger bigrand = nextRandomBigInteger(fact[G.getVertices()]);
+	System.out.println("BIG "+bigrand);
+	ArrayList<Node> newperm = G.getPerm(bigrand);
+
 	for(Node i:newperm)
 	    {
 		System.out.print(i+" ");
