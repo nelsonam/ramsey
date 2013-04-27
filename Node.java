@@ -41,8 +41,6 @@ public class Node
 	    return newOne;
 	}
 
-	// how the heck do we get the color matrix??
-
 	//if colorMatrix == 1
 	// left++
 	// insert(t.left, newOne);

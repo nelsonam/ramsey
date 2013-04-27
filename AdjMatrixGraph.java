@@ -177,25 +177,21 @@ public class AdjMatrixGraph {
 	System.out.println("\n");
 	//get a random perm of the vertices here
 	Random rand = new Random();
-	//replace this 50 with the number of possible perms
-	// # of possible perms == V! (eg 5 vertices -> 5! perms)
+
+	//calculates V!
 	int k=0;
 	BigInteger[] fact = new BigInteger[G.getVertices()+1];
 	fact[k] = new BigInteger("1");
 	while(++k<G.getVertices()+1)
 	    fact[k] = fact[k-1].multiply(BigInteger.valueOf(k));
-	
-	for(int i=0; i<G.getVertices()+1; i++)
-	    {
-		System.out.println(fact[i]);
-	    }
-	//ArrayList<Node> newperm = G.getPerm(rand.nextInt(fact[G.getVertices()].intValue()));
 
 	/////////make a big random value
 	BigInteger bigrand = nextRandomBigInteger(fact[G.getVertices()]);
 	System.out.println("BIG "+bigrand);
+	// # of possible perms == V! (eg 5 vertices -> 5! perms)
 	ArrayList<Node> newperm = G.getPerm(bigrand);
 
+	//print the new permutation
 	for(Node i:newperm)
 	    {
 		System.out.print(i+" ");
