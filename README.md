@@ -19,6 +19,7 @@ to work on
 -  if there is a graph that gets a 0 fitness (no same colored cliques), save that graph somehow for further inspection
 -  NEXT ON THE LIST:
   - implement graph algo below (April 26)
+  - use this: http://www.algolist.net/Data_structures/Binary_search_tree/Insertion to fix the bin tree
 
 the graph algorithm (McRae's idea)
 --------------
