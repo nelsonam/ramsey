@@ -5,6 +5,7 @@ public class Node
     Node leftChild;
     Node rightChild;
     int value;
+    Node root;
 
     int leftCount;
     int rightCount;
@@ -34,23 +35,27 @@ public class Node
     }
     public Node insert(Node t, Node newOne)
     {
-	if(t.equals(null))
+	System.out.println("inserting: "+t+", "+newOne);
+	if(t.root.equals(null) || t.equals(null))
 	{
+	    t.root = t;
 	    leftCount++;
 	    rightCount++;
 	    return newOne;
 	}
+	else if(C.getColor(t.value,newOne.value))
+	{
+	    leftCount++;
+	    insert(t.leftChild, newOne);
+	    return t;
+	}
 
-	//if colorMatrix == 1
-	// left++
-	// insert(t.left, newOne);
-	// return t;
-
-	//else
-	// right++
-	// insert(t.right, newOne);
-	// return t;
-	return t;
+	else
+	{
+	    rightCount++;
+	    insert(t.rightChild, newOne);
+	    return t;
+	}
     }
 
     @Override
