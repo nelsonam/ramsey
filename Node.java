@@ -33,11 +33,38 @@ public class Node
     {
 	return this.leftChild;
     }
-    public Node insert(Node t, Node newOne)
+    //public Node insert(Node t, Node newOne) -- t is the root?
+    public void insert(Node root, Node prev, Node curr)
     {
-	System.out.println("inserting: "+t+", "+newOne);
-	if(t.root.equals(null) || t.equals(null))
+	if(C.getColor(prev.value,curr.value)) //color 1
 	{
+	    if(root.leftChild!=null)
+	    {
+		insert(root.leftChild,prev,curr);
+	    }
+	    else
+	    {
+		root.leftChild = curr;
+		leftCount++;
+	    }
+	}
+	else
+	{
+	    if(root.rightChild!=null)
+	    {
+		insert(root.rightChild,prev,curr);
+	    }
+	    else
+	    {
+		root.rightChild = curr;
+		rightCount++;
+	    }
+	}
+	//derpface
+	/*System.out.println("inserting: "+t+", "+newOne);
+	if(t.root == null)
+	{
+	    System.out.println("root created: "+t);
 	    t.root = t;
 	    leftCount++;
 	    rightCount++;
@@ -45,17 +72,21 @@ public class Node
 	}
 	else if(C.getColor(t.value,newOne.value))
 	{
+	    System.out.println("inserting left: "+t);
 	    leftCount++;
+	    t.leftChild = t;
 	    insert(t.leftChild, newOne);
 	    return t;
 	}
 
 	else
 	{
+	    System.out.println("inserting right: "+t);
 	    rightCount++;
+	    t.rightChild = t;
 	    insert(t.rightChild, newOne);
 	    return t;
-	}
+	    }*/
     }
 
     @Override

@@ -201,17 +201,16 @@ public class AdjMatrixGraph {
 	//insert perm into binary tree - this should actually go in the fitness function
 	int leftCount, rightCount;
 	int cliques = 0;
-	Node t = null;
-	for(int z=1; z<newperm.size(); z++)
+	Node root = newperm.get(0);
+	for(int z=1; z<newperm.size()-1; z++)
 	{
 	    leftCount = 0;
 	    rightCount = 0;
-	    t=t.insert(t,newperm.get(z));
+	    root.insert(root,newperm.get(z),newperm.get(z+1));
 	    if(leftCount>4 || rightCount>4)
 		cliques++;
 	}
-
-	System.out.println(cliques);
+	System.out.println("cliques: " + cliques);
 	System.out.println("\nColoring: ");
 	//make a new Chromosome (basically just a ColorMatrix)
 	Chromosome chr = new Chromosome(c);
