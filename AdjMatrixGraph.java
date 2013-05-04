@@ -10,7 +10,6 @@ public class AdjMatrixGraph {
     private int V;
     private int E;
     private boolean[][] adj;
-    private ArrayList<Node> nodes;
     
     //empty graph with V vertices
     public AdjMatrixGraph(int V, boolean complete) {
@@ -18,7 +17,6 @@ public class AdjMatrixGraph {
         this.V = V;
         this.E = 0;
         this.adj = new boolean[V][V];
-	this.nodes = new ArrayList<Node>();
     }
 
     // Complete graph with V vertices
@@ -40,14 +38,6 @@ public class AdjMatrixGraph {
     public int getVertices() { return this.V; }
     public int getEdges() { return this.E; }
 
-    public void initNodes(ColorMatrix C)
-    {
-	for(int k=0; k<this.V; k++)
-	    {
-		nodes.add(new Node(k, C));
-	    }
-    }
-
     // add undirected edge v-w
     public void addEdge(int v, int w) {
         if (!adj[v][w]) this.E++;
@@ -58,11 +48,6 @@ public class AdjMatrixGraph {
     // does the graph contain the edge v-w?
     public boolean contains(int v, int w) {
         return adj[v][w];
-    }
-
-    public Node getNode(int index)
-    {
-	return nodes.get(index);
     }
 
     // return list of neighbors of v
@@ -91,46 +76,7 @@ public class AdjMatrixGraph {
         }
 
         public void remove()  { throw new UnsupportedOperationException();  }
-    }
-
-    //gets a permutation of the vertices referred to by index i
-    public ArrayList<Node> getPerm(BigInteger index)
-    {
-	//implementation adapted from 
-	//http://stackoverflow.com/questions/7918806/finding-n-th-permutation-without-computing-others
-	int j, k = 0;
-	//change this to BigInteger - factorials get really BIG!
-	BigInteger[] fact = new BigInteger[nodes.size()];
-	BigInteger[] perm = new BigInteger[nodes.size()];
-       
-	ArrayList<Node> newperm = new ArrayList<Node>();
-	fact[k] = new BigInteger("1");
-	while(++k<nodes.size())
-	    fact[k] = fact[k-1].multiply(BigInteger.valueOf(k));
-
-	for(k=0;k<nodes.size(); ++k)
-	    {
-		perm[k] = index.divide(fact[nodes.size()-1-k]);
-		index = index.mod(fact[nodes.size()-1-k]);
-	    }
-
-	for(k=nodes.size()-1; k>0; --k)
-	    {
-		for(j=k-1;j>=0; --j)
-		    {
-			//use compareTo == -1 or 0
-			if((perm[j].compareTo(perm[k])) <= 0) 
-			    perm[k] = perm[k].add(BigInteger.valueOf(1));
-		    }
-	    }
-	
-	for(k=0; k<nodes.size(); ++k)
-	    {
-		newperm.add(getNode((perm[k]).intValue()));
-	    }
-	return newperm;
-    }
-	
+    }	
 
     // string representation of Graph - takes quadratic time
     public String toString() {
@@ -147,15 +93,6 @@ public class AdjMatrixGraph {
         return s.toString();
     }
 
-    public static BigInteger nextRandomBigInteger(BigInteger n) {
-	Random rand = new Random();
-	BigInteger result = new BigInteger(n.bitLength(), rand);
-	while( result.compareTo(n) >= 0 ) {
-	    result = new BigInteger(n.bitLength(), rand);
-	}
-	return result;
-    }
-
     // test client
     public static void main(String[] args) {
 	//gets the number of vertices we want
@@ -167,58 +104,15 @@ public class AdjMatrixGraph {
 	System.out.println("\n");
 	//get a random coloring
 	ColorMatrix c = new ColorMatrix(G);
-	//make node objs for each vertex
-	G.initNodes(c);
-	//make sure we init'ed the nodes right
-	for(int a = 0; a<G.getVertices(); a++)
-	    {
-		System.out.print(G.getNode(a)+" ");
-	    }
-	System.out.println("\n");
-	//get a random perm of the vertices here
-	Random rand = new Random();
 
-	//calculates V!
-	int k=0;
-	BigInteger[] fact = new BigInteger[G.getVertices()+1];
-	fact[k] = new BigInteger("1");
-	while(++k<G.getVertices()+1)
-	    fact[k] = fact[k-1].multiply(BigInteger.valueOf(k));
-
-	/////////make a big random value
-	BigInteger bigrand = nextRandomBigInteger(fact[G.getVertices()]);
-	System.out.println("BIG "+bigrand);
-	// # of possible perms == V! (eg 5 vertices -> 5! perms)
-	ArrayList<Node> newperm = G.getPerm(bigrand);
-
-	//print the new permutation
-	for(Node i:newperm)
-	    {
-		System.out.print(i+" ");
-	    }
-	System.out.println("\n");
-
-	//insert perm into binary tree - this should actually go in the fitness function
-	int leftCount, rightCount;
-	int cliques = 0;
-	Node root = newperm.get(0);
-	for(int z=1; z<newperm.size()-1; z++)
-	{
-	    leftCount = 0;
-	    rightCount = 0;
-	    root.insert(root,newperm.get(z),newperm.get(z+1));
-	    if(leftCount>4 || rightCount>4)
-		cliques++;
-	}
-	System.out.println("cliques: " + cliques);
 	System.out.println("\nColoring: ");
 	//make a new Chromosome (basically just a ColorMatrix)
 	Chromosome chr = new Chromosome(c);
 	//print our coloring
 	c.printColoring();
 	//get fitness (number of same colored cliques of size x (x is the parameter)
-	int fit = chr.getFitness(5);
-	//System.out.println("Number of same colored triangles: "+fit);
+	int fit = chr.getFitness(3);
+	System.out.println("Number of same colored triangles: "+fit+"\n");
 
 	//make a new population
 	Population pop = new Population(10, G.getVertices());
