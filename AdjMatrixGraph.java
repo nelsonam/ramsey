@@ -111,7 +111,7 @@ public class AdjMatrixGraph {
 	//print our coloring
 	c.printColoring();
 	//get fitness (number of same colored cliques of size x (x is the parameter)
-	int fit = chr.getFitness(3);
+	int fit = chr.getFitness(5);
 	System.out.println("Number of same colored triangles: "+fit+"\n");
 
 	//make a new population

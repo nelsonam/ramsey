@@ -70,4 +70,9 @@ public class Chromosome
 	return this.C;
     }
     
+    public ColorMatrix getColorMatrix()
+    {
+	return this.C;
+    }
+    
 }

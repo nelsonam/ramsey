@@ -22,6 +22,28 @@ public class Population
 	return pop.size();
     }
     
+    public Chromosome getWorst()
+    {
+	Chromosome worst = pop.get(0);
+	for(Chromosome c:pop)
+	    {
+		if(c.getFitness(5)>worst.getFitness(5))
+		    worst = c;
+	    }
+	return worst;
+    }
+
+    public int getWorstPosition()
+    {
+	int worst = 0;
+	for(int i=0; i<pop.size(); i++)
+	    {
+		if(pop.get(i).getFitness(5)>pop.get(worst).getFitness(5))
+		    worst = i;
+	    }
+	return worst;
+    }
+
     @Override
     public String toString()
     {
@@ -29,7 +51,7 @@ public class Population
 	String p="";
 	for(Chromosome c:pop)
 	    {
-		p+="Fitness for graph "+i+": "+c.getFitness(3);
+		p+="Fitness for graph "+i+": "+c.getFitness(5);
 		p+="\n";
 		i++;
 	    }
