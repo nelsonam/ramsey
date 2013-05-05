@@ -51,7 +51,10 @@ public class Population
 	String p="";
 	for(Chromosome c:pop)
 	    {
-		p+="Fitness for graph "+i+": "+c.getFitness(5);
+		//p+="Fitness for graph "+i+": "+c.getFitness(5);
+		p+=c.getFitness(5);
+		if(c.getFitness(5)==0)
+		    c.getColorMatrix().printColoring();
 		p+="\n";
 		i++;
 	    }
@@ -70,5 +73,9 @@ public class Population
 	//otherwise just add it
 	else
 	    pop.add(c);
+    }
+    public ArrayList<Chromosome> getPop()
+    {
+	return this.pop;
     }
 }

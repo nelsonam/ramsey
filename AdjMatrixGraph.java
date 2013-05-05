@@ -100,24 +100,32 @@ public class AdjMatrixGraph {
 	//makes a new graph object
         AdjMatrixGraph G = new AdjMatrixGraph(V);
 	//print the graph
-        System.out.println(G);
-	System.out.println("\n");
+        //System.out.println(G);
+	//System.out.println("\n");
 	//get a random coloring
 	ColorMatrix c = new ColorMatrix(G);
 
-	System.out.println("\nColoring: ");
+	//System.out.println("\nColoring: ");
 	//make a new Chromosome (basically just a ColorMatrix)
 	Chromosome chr = new Chromosome(c);
 	//print our coloring
-	c.printColoring();
+	//c.printColoring();
 	//get fitness (number of same colored cliques of size x (x is the parameter)
 	int fit = chr.getFitness(5);
-	System.out.println("Number of same colored triangles: "+fit+"\n");
+	//System.out.println("Number of same colored triangles: "+fit+"\n");
 
 	//make a new population
-	Population pop = new Population(10, G.getVertices());
+	Population pop = new Population(100, G.getVertices());
+	for(Chromosome chrom:pop.getPop())
+	    {
+		if(chrom.getFitness(5)==0)
+		    {
+			chrom.getColorMatrix().printColoring();
+			System.out.println();
+		    }
+	    }
 	//print the population
-	System.out.println(pop);
+	//System.out.println(pop);
     }
 
 }
