@@ -6,14 +6,17 @@ public class Genetics
 
     public static Population evolve(Population p)
     {
-	//parents
-	Chromosome mom = selectParent(p);
-	Chromosome pop = selectParent(p);
-	//crossover
-	Chromosome baby = crossover(mom,pop);
-	//if it is better add it
-	if(baby.getFitness(5)<p.getWorst().getFitness(5))
-	    p.addChromosome(p.getWorstPosition(),baby);
+	for(Chromsome c:p)
+	    {
+		//parents
+		Chromosome mom = selectParent(p);
+		Chromosome pop = selectParent(p);
+		//crossover
+		Chromosome baby = crossover(mom,pop);
+		//if it is better add it
+		if(baby.getFitness(5)<p.getWorst().getFitness(5))
+		    p.addChromosome(p.getWorstPosition(),baby);
+	    }
 	//mutate
 	for(int j=0; j<p.getSize(); j++)
 	    {
@@ -62,27 +65,33 @@ public class Genetics
 				//if <50% swap in from mom
 				if(random<0.5)
 				    {
-					colors[i][j] = m.getColor(i,j);
-					colors[j][i] = m.getColor(i,j);
+					babby.setColor(i,j, m.getColor(i,j));
 				    }
 				//if >50% swap in from pop
 				if(random>0.5)
 				    {
-					colors[i][j] = p.getColor(i,j);
-					colors[j][i] = p.getColor(i,j);
+					babby.setColor(i,j,p.getColor(i,j));
 				    }
 				//make sure you set [i,j] and [j,1] as the same thing
 				
 			    }
 		    }
 	    }
-	//place holder
-	return mom;
+	return new Chromosome(babby);
     }
     public static Chromosome selectParent(Population p)
     {
 	//gets a random parent
 	int random = (int)(Math.random()*p.getSize());
-	return p.getChromosome(random);
+	//return p.getChromosome(random);
+
+	//gets the best parents evar!!!1!1!
+	double chance = Math.random();
+	if(random>0.5)
+	    return p.getBest();
+	if(random<0.5)
+	    return p.getChromosome(random);
+
+	return p.getBest();
     }
 }

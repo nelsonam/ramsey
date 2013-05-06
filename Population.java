@@ -44,6 +44,29 @@ public class Population
 	return worst;
     }
 
+    public Chromosome getBest()
+    {
+	Chromosome best = pop.get(0);
+	for(Chromosome c:pop)
+	    {
+		if(c.getFitness(5)<best.getFitness(5))
+		    best = c;
+	    }
+	return best;
+    }
+
+    public int getBestPosition()
+    {
+	int best = 0;
+	for(int i=0; i<pop.size(); i++)
+	    {
+		if(pop.get(i).getFitness(5)<pop.get(best).getFitness(5))
+		    best = i;
+	    }
+	return best;
+    }
+
+
     @Override
     public String toString()
     {
@@ -53,9 +76,9 @@ public class Population
 	    {
 		//p+="Fitness for graph "+i+": "+c.getFitness(5);
 		p+=c.getFitness(5);
-		if(c.getFitness(5)==0)
-		    c.getColorMatrix().printColoring();
-		p+="\n";
+		//if(c.getFitness(5)==0)
+		    //    c.getColorMatrix().printColoring();
+		    p+="\n";
 		i++;
 	    }
 	return p;

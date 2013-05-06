@@ -115,8 +115,21 @@ public class AdjMatrixGraph {
 	//System.out.println("Number of same colored triangles: "+fit+"\n");
 
 	//make a new population
-	Population pop = new Population(100, G.getVertices());
-	pop = Genetics.evolve(pop);
+	Population pop = new Population(10, G.getVertices());
+	//begin the mating process!!!
+	int gen = 0;
+	while(pop.getWorst().getFitness(5)>5)
+	//while(gen<10)
+	    {
+		System.out.println("Generation "+gen);
+		System.out.println("=================");
+		pop = Genetics.evolve(pop);
+		System.out.println(pop);
+		System.out.println("\n");
+		gen++;
+	    }
+	
+	
 	/*for(Chromosome chrom:pop.getPop())
 	    {
 		if(chrom.getFitness(5)==0)
@@ -124,7 +137,7 @@ public class AdjMatrixGraph {
 			chrom.getColorMatrix().printColoring();
 			System.out.println();
 		    }
-	    }
+		    }*/
 	//print the population
 	//System.out.println(pop);
     }
