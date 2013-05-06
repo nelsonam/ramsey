@@ -89,11 +89,11 @@ public class Genetics
 
 	//gets the best parents evar!!!1!1!
 	double chance = Math.random();
-	if(chance>0.5)
+	if(chance>0.95)
 	    {
 		return p.getBest();	
 	    }
-	else if(chance<0.5)
+	else if(chance<=0.95)
 	    {
 		return p.getChromosome(random);	
 	    }

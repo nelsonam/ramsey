@@ -72,13 +72,19 @@ public class Population
     {
 	int i = 0;
 	String p="";
+	int terms = 25;
 	for(Chromosome c:pop)
 	    {
 		//p+="Fitness for graph "+i+": "+c.getFitness(5);
-		p+=c.getFitness(5);
+		p+=c.getFitness(5)+"  ";
+		terms--;
 		//if(c.getFitness(5)==0)
 		    //    c.getColorMatrix().printColoring();
-		    p+="\n";
+		if(terms==0)
+		    {
+			p+="\n";
+			terms=25;
+		    }
 		i++;
 	    }
 	return p;
