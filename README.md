@@ -6,20 +6,10 @@ to work on
 - IMPORTANT
   - instead of using the same set of edges to check fitness each time, generate `x` random ones
   - http://stackoverflow.com/questions/7918806/finding-n-th-permutation-without-computing-others
-- use the graph algorithm below on each set of random edges in our list
-- this will give us the fitness
-  - first value: after the insert process
-  - second value: if bintree says 0 cliques, exhaustive search
-  - if second value == 0, then ^_^
--  crossover
-  - take two random graphs
-  - switch some points in the ColorMatrix?
--  implement the actual genetic algorithm part
--  static var for clique size (prompt user) eg R(3,3) R(5,5) etc
 -  if there is a graph that gets a 0 fitness (no same colored cliques), save that graph somehow for further inspection
--  NEXT ON THE LIST:
-  - implement graph algo below (April 26)
-  - use this: http://www.algolist.net/Data_structures/Binary_search_tree/Insertion to fix the bin tree
+-  change fitness function so it gets `x` random perms instead of the same every time
+-  do something with the  "0" graphs
+
 
 the graph algorithm (McRae's idea)
 --------------
