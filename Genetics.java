@@ -6,7 +6,7 @@ public class Genetics
 
     public static Population evolve(Population p)
     {
-	for(Chromsome c:p)
+	for(Chromosome c:p.getPop())
 	    {
 		//parents
 		Chromosome mom = selectParent(p);
