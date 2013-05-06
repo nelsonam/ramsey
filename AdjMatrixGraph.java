@@ -95,6 +95,8 @@ public class AdjMatrixGraph {
 
     // test client
     public static void main(String[] args) {
+	long startTime = System.nanoTime();
+
 	//gets the number of vertices we want
         int V = Integer.parseInt(args[0]);
 	//makes a new graph object
@@ -129,7 +131,17 @@ public class AdjMatrixGraph {
 		gen++;
 	    }
 	
-	
+	System.out.println("Took "+gen+" generations");
+	long endTime = System.nanoTime();
+	long elapsed = endTime-startTime;
+	double seconds = (double)elapsed / 1000000000.0;
+	double minutes = (double)seconds / 60;
+	System.out.println("Took "+(seconds) + " s"); 
+	System.out.println("Took "+(minutes) + " m"); 
+
+	//print the "0s" and their colorings to a file
+	//do further testing on these
+
 	/*for(Chromosome chrom:pop.getPop())
 	    {
 		if(chrom.getFitness(5)==0)
