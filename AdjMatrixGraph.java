@@ -115,10 +115,10 @@ public class AdjMatrixGraph {
 	//System.out.println("Number of same colored triangles: "+fit+"\n");
 
 	//make a new population
-	Population pop = new Population(10, G.getVertices());
+	Population pop = new Population(250, G.getVertices());
 	//begin the mating process!!!
 	int gen = 0;
-	while(pop.getWorst().getFitness(5)>5)
+	while(pop.getWorst().getFitness(5)>0)
 	//while(gen<10)
 	    {
 		System.out.println("Generation "+gen);

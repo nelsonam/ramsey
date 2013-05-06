@@ -26,6 +26,7 @@ public class Chromosome
 	//   1 2 3 4 5
 	//   1 3 4 5 6
 	//   ...
+	fitness = 0;
 	int[] clique = new int[n]; // to hold the vertices we want to make a clique with
 	for(int x=0; x<C.getGraph().getVertices()-(n-1); x++)
 	    {
