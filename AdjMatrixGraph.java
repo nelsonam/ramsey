@@ -116,7 +116,8 @@ public class AdjMatrixGraph {
 
 	//make a new population
 	Population pop = new Population(100, G.getVertices());
-	for(Chromosome chrom:pop.getPop())
+	pop = Genetics.evolve(pop);
+	/*for(Chromosome chrom:pop.getPop())
 	    {
 		if(chrom.getFitness(5)==0)
 		    {

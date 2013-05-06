@@ -24,6 +24,26 @@ public class ColorMatrix {
 		    }		
 	    }
     }
+
+    //initializes a blank color matrix (for making new chromosomes)
+    public ColorMatrix(AdjMatrixGraph G, boolean blank)
+    {
+	colors = new boolean[G.getVertices()][G.getVertices()];
+	this.G = G;
+	for(int i=0; i<G.getVertices(); i++)
+	    {
+		for(int j=0; j<G.getVertices(); j++)
+		    {
+			boolean color = false;
+			if(i<j)
+			    {
+				colors[i][j] = color;
+				colors[j][i] = color;
+			    }
+		    }		
+	    }
+
+    }
     public boolean[][] getColorMatrix()
     {
 	return this.colors;
