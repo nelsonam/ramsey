@@ -9,6 +9,14 @@ to work on
 -  if there is a graph that gets a 0 fitness (no same colored cliques), save that graph somehow for further inspection
 -  change fitness function so it gets `x` random perms instead of the same every time
 -  do something with the  "0" graphs
+-  run "0" graphs through another set of test data
+  - 0 2 4 6 8
+  - 1 3 5 7 9
+  - 2 4 6 8 10
+  - 3 5 7 9 11
+  - 4 6 8 10 12
+  - ...
+  - 34 36 38 40 42
 
 
 the graph algorithm (McRae's idea)
