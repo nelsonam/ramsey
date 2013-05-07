@@ -17,6 +17,15 @@ to work on
   - 4 6 8 10 12
   - ...
   - 34 36 38 40 42
+- OR:
+  - 0 1 3 5 7
+  - 0 2 4 6 8
+  - 0 3 5 7 9
+  - ...
+  - 1 2 4 6 8
+  - 1 3 5 7 9
+  - ...
+  - like the original fit function, but go up by 2 not 1
 
 
 the graph algorithm (McRae's idea)
