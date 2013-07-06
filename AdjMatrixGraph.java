@@ -4,6 +4,7 @@
 import java.util.Iterator;
 import java.util.*;
 import java.math.*;
+import java.io.*;
 
 
 public class AdjMatrixGraph {
@@ -93,6 +94,14 @@ public class AdjMatrixGraph {
         return s.toString();
     }
 
+    //takes a file (in the buffreader) and loads it into a population
+    //for pre-formed pops, not random
+    public static Population graphLoad(BufferedReader b)
+    {
+	Population p = new Population();
+	
+    }
+
     // test client
     public static void main(String[] args) {
 	long startTime = System.nanoTime();
@@ -101,23 +110,43 @@ public class AdjMatrixGraph {
         int V = Integer.parseInt(args[0]);
 	//makes a new graph object
         AdjMatrixGraph G = new AdjMatrixGraph(V);
-	//print the graph
-        //System.out.println(G);
-	//System.out.println("\n");
-	//get a random coloring
-	ColorMatrix c = new ColorMatrix(G);
+	//after this, we want to check if we have a file to pull from
+	System.out.println("if you have a data file, enter the name now:");
+	Scanner in = new Scanner(System.in);
+	String file = in.nextLine();
 
-	//System.out.println("\nColoring: ");
-	//make a new Chromosome (basically just a ColorMatrix)
-	Chromosome chr = new Chromosome(c);
-	//print our coloring
-	//c.printColoring();
-	//get fitness (number of same colored cliques of size x (x is the parameter)
-	int fit = chr.getFitness(5);
-	//System.out.println("Number of same colored triangles: "+fit+"\n");
-
-	//make a new population
-	Population pop = new Population(200, G.getVertices());
+	try{
+	    FileInputStream fstream = new FileInputStream(file);
+	    DataInputStream data = new DataInputStream(fstream);
+	    BufferedReader br = new BufferedReader(new InputStreamReader(data));
+	}catch(Exception e){
+	    System.out.println("file didn't work");
+	}
+	if(!br.equals(null))
+	    {
+		Population pop = graphLoad(br); //load in the data from the file
+		data.close();
+	    }
+	
+	else{
+	    //print the graph
+	    //System.out.println(G);
+	    //System.out.println("\n");
+	    //get a random coloring
+	    ColorMatrix c = new ColorMatrix(G);
+	    
+	    //System.out.println("\nColoring: ");
+	    //make a new Chromosome (basically just a ColorMatrix)
+	    Chromosome chr = new Chromosome(c);
+	    //print our coloring
+	    //c.printColoring();
+	    //get fitness (number of same colored cliques of size x (x is the parameter)
+	    int fit = chr.getFitness(5);
+	    //System.out.println("Number of same colored triangles: "+fit+"\n");
+	    
+	    //make a new population
+	    Population pop = new Population(200, G.getVertices());
+	}
 	//begin the mating process!!!
 	int gen = 0;
 	while(pop.getWorst().getFitness(5)>0)
@@ -141,15 +170,37 @@ public class AdjMatrixGraph {
 
 	//print the "0s" and their colorings to a file
 	//do further testing on these
-
-	/*for(Chromosome chrom:pop.getPop())
+	PrintWriter writer = null;
+	int number = 0;
+	for(Chromosome chro:pop.getPop())
 	    {
-		if(chrom.getFitness(5)==0)
-		    {
-			chrom.getColorMatrix().printColoring();
-			System.out.println();
-		    }
-		    }*/
+		//number++;
+		//System.out.println(number);
+	    }
+	System.out.println(pop);
+	try{
+	    writer = new PrintWriter("datazeroes.txt", "UTF-8");
+	    for(Chromosome chrom:pop.getPop())
+		{
+		//if(chrom.getFitness(5)==0)
+		//    {
+			//chrom.getColorMatrix().printColoring();
+			//System.out.println();
+
+		    //number++;
+		    //System.out.println(number);
+		    writer.println(chrom.getColorMatrix().getColoring());
+		    writer.println();
+
+			//	    }
+		}
+	    writer.close();
+	    System.out.println("possible zeroes dumped");
+	}
+	catch(Exception e)
+	    {
+	        System.out.println("fail");
+	    }
 	//print the population
 	//System.out.println(pop);
     }

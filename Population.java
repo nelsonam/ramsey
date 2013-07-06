@@ -16,6 +16,11 @@ public class Population
 		pop.add(new Chromosome(C));
 	    }
     }
+    //blank constructor to use for manual inserting (from file)
+    public Population()
+    {
+	pop = new ArrayList<Chromosome>();
+    }
 
     public int getSize()
     {

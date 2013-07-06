@@ -44,6 +44,12 @@ public class ColorMatrix {
 	    }
 
     }
+
+    //load in a preformed coloring to the graph -- get this from a file
+    public ColorMatrix(AdjMatrixGraph G, boolean[][] coloring)
+    {
+	
+    }
     public boolean[][] getColorMatrix()
     {
 	return this.colors;
@@ -104,6 +110,25 @@ public class ColorMatrix {
 		    }
 		System.out.println();	
 	    }
+
+    }
+
+    public String getColoring()
+    {
+	//get
+	String coloring = "";
+	for(int i=0; i<G.getVertices(); i++)
+	    {
+		for(int j=0; j<G.getVertices(); j++)
+		    {
+			if(colors[i][j])
+			    coloring+="1 ";
+			else
+			    coloring+="0 ";
+		    }
+		coloring+="\n";	
+	    }
+	return coloring;
 
     }
 
