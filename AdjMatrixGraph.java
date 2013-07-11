@@ -99,9 +99,48 @@ public class AdjMatrixGraph {
     public static Population graphLoad(BufferedReader b)
     {
 	Population p = new Population();
+	int linenum = 0;
+	try{
+	String read = b.readLine();
 	
-	String read = "";
-	
+
+	//while((read.contains("0") || read.contains("1")) && read != null)
+	while(read != null)
+	    {
+		//we want only the lines with numbers, this is how we will break it up
+		if((read.contains("0") || read.contains("1")))
+		    {
+			System.out.println(read);
+			for(int pos = 0; pos<read.length(); pos++)
+			    {
+				if(read.charAt(pos) == '0')
+				    {
+					//use these positions to set up a colormatrix
+					System.out.println("0 at position "+linenum+","+pos/2);
+				    }
+				else if(read.charAt(pos) == '1')
+				    {
+					System.out.println("1 at position "+linenum+","+pos/2);
+				    }
+				else
+				    {
+					//other stuff
+				    }
+			    }
+			//gets the next line
+			read = b.readLine();
+			linenum++;
+		    }
+		else
+		    {
+			//reset to read in a new block of nums
+			linenum = 0;
+			read = b.readLine();
+		    }
+	    }
+	}catch(Exception e)
+	    {}
+	return p;
     }
 
     // test client
@@ -116,18 +155,24 @@ public class AdjMatrixGraph {
 	System.out.println("if you have a data file, enter the name now:");
 	Scanner in = new Scanner(System.in);
 	String file = in.nextLine();
-
+	BufferedReader br = null;
+	DataInputStream data = null;
 	try{
 	    FileInputStream fstream = new FileInputStream(file);
-	    DataInputStream data = new DataInputStream(fstream);
-	    BufferedReader br = new BufferedReader(new InputStreamReader(data));
+	    data = new DataInputStream(fstream);
+	    br = new BufferedReader(new InputStreamReader(data));
 	}catch(Exception e){
 	    System.out.println("file didn't work");
 	}
+	Population pop = null;
 	if(!br.equals(null))
 	    {
-		Population pop = graphLoad(br); //load in the data from the file
-		data.close();
+		pop = graphLoad(br); //load in the data from the file
+		try{
+		    data.close();
+		}catch(Exception e)
+		    {}
+		System.exit(1);
 	    }
 	
 	else{
@@ -147,7 +192,7 @@ public class AdjMatrixGraph {
 	    //System.out.println("Number of same colored triangles: "+fit+"\n");
 	    
 	    //make a new population
-	    Population pop = new Population(200, G.getVertices());
+	    pop = new Population(200, G.getVertices());
 	}
 	//begin the mating process!!!
 	int gen = 0;
