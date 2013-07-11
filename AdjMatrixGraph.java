@@ -100,6 +100,8 @@ public class AdjMatrixGraph {
     {
 	Population p = new Population();
 	
+	String read = "";
+	
     }
 
     // test client
@@ -172,11 +174,6 @@ public class AdjMatrixGraph {
 	//do further testing on these
 	PrintWriter writer = null;
 	int number = 0;
-	for(Chromosome chro:pop.getPop())
-	    {
-		//number++;
-		//System.out.println(number);
-	    }
 	System.out.println(pop);
 	try{
 	    writer = new PrintWriter("datazeroes.txt", "UTF-8");
