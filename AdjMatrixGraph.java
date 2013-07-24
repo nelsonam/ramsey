@@ -103,12 +103,11 @@ public class AdjMatrixGraph {
 	int linenum = 0;
 	try{
 	String read = b.readLine();
-	
+	boolean[][] c = new boolean[G.getVertices()][G.getVertices()]; //holds the colors in a matrix
 
 	//while((read.contains("0") || read.contains("1")) && read != null)
 	while(read != null)
 	    {
-		boolean[][] c = new boolean[G.getVertices()][G.getVertices()]; //holds the colors in a matrix
 		//we want only the lines with numbers, this is how we will break it up
 		if((read.contains("0") || read.contains("1")))
 		    {
@@ -140,8 +139,20 @@ public class AdjMatrixGraph {
 		    }
 		else
 		    {
+			//testing values of the matrix
+			/*for(int first=0; first<c.length; first++)
+			    {
+				for(int second=0; second<c.length; second++)
+				    {
+					System.out.print(c[first][second]+" ");
+					
+				    }
+				System.out.println();
+				}*/
+
 			//end of a block, that means load in the matrix to an object
 			ColorMatrix cm  = new ColorMatrix(G, c);
+			//cm.printColoring();
 			Chromosome chro = new Chromosome(cm);
 			//add this Chromosome to a list so we can have a pop at the end
 			poplist.add(chro);
@@ -149,20 +160,26 @@ public class AdjMatrixGraph {
 			//reset to read in a new block of nums
 			linenum = 0;
 			//reset the matrix
-			for(int a = 0; a<G.getVertices(); a++)
+			/*for(int a = 0; a<G.getVertices(); a++)
 			    {
 				for(int d = 0; d<G.getVertices(); d++)
 				    {
 					c[a][d] = false;
 				    }
-			    }
+				    }*/
 
 			read = b.readLine();
 		    }
 	    }
-	p = new Population(poplist);
+	//System.out.println(poplist);
+	for(Chromosome chromo: poplist)
+	    {
+		//c.getColorMatrix().printColoring();
+		//System.out.println("\n");
+		p.addChromosome(chromo);
+	    }
 	}catch(Exception e)
-	    {}
+	    {e.printStackTrace(System.out);}
 	return p;
     }
 

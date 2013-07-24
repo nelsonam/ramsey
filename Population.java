@@ -26,6 +26,7 @@ public class Population
     public Population(ArrayList<Chromosome> list)
     {
 	//hopefully this copies everything over, might need to make a manual move
+	System.out.println(list);
 	pop = list;
     }
 
@@ -114,6 +115,10 @@ public class Population
 	//otherwise just add it
 	else
 	    pop.add(c);
+    }
+    public void addChromosome(Chromosome c)
+    {
+	pop.add(c);
     }
     public ArrayList<Chromosome> getPop()
     {
