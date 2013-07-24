@@ -48,7 +48,9 @@ public class ColorMatrix {
     //load in a preformed coloring to the graph -- get this from a file
     public ColorMatrix(AdjMatrixGraph G, boolean[][] coloring)
     {
-	
+	//this just copies the matrix over
+	colors = coloring;
+	this.G = G;
     }
     public boolean[][] getColorMatrix()
     {

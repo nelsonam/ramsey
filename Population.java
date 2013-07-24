@@ -22,6 +22,13 @@ public class Population
 	pop = new ArrayList<Chromosome>();
     }
 
+    //makes a pop from a pre formed list of chromosomes
+    public Population(ArrayList<Chromosome> list)
+    {
+	//hopefully this copies everything over, might need to make a manual move
+	pop = list;
+    }
+
     public int getSize()
     {
 	return pop.size();

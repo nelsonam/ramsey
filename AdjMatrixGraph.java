@@ -96,9 +96,10 @@ public class AdjMatrixGraph {
 
     //takes a file (in the buffreader) and loads it into a population
     //for pre-formed pops, not random
-    public static Population graphLoad(BufferedReader b)
+    public static Population graphLoad(BufferedReader b, AdjMatrixGraph G)
     {
 	Population p = new Population();
+	ArrayList<Chromosome> poplist = new ArrayList<Chromosome>();
 	int linenum = 0;
 	try{
 	String read = b.readLine();
@@ -107,20 +108,26 @@ public class AdjMatrixGraph {
 	//while((read.contains("0") || read.contains("1")) && read != null)
 	while(read != null)
 	    {
+		boolean[][] c = new boolean[G.getVertices()][G.getVertices()]; //holds the colors in a matrix
 		//we want only the lines with numbers, this is how we will break it up
 		if((read.contains("0") || read.contains("1")))
 		    {
-			System.out.println(read);
+			//System.out.println(read);
 			for(int pos = 0; pos<read.length(); pos++)
 			    {
 				if(read.charAt(pos) == '0')
 				    {
 					//use these positions to set up a colormatrix
-					System.out.println("0 at position "+linenum+","+pos/2);
+					//System.out.println("0 at position "+linenum+","+pos/2);
+
+					//load these values into a matrix
+					c[linenum][pos/2] = false; //0
 				    }
 				else if(read.charAt(pos) == '1')
 				    {
-					System.out.println("1 at position "+linenum+","+pos/2);
+					//System.out.println("1 at position "+linenum+","+pos/2);
+					
+					c[linenum][pos/2] = true; //1
 				    }
 				else
 				    {
@@ -133,11 +140,27 @@ public class AdjMatrixGraph {
 		    }
 		else
 		    {
+			//end of a block, that means load in the matrix to an object
+			ColorMatrix cm  = new ColorMatrix(G, c);
+			Chromosome chro = new Chromosome(cm);
+			//add this Chromosome to a list so we can have a pop at the end
+			poplist.add(chro);
+			
 			//reset to read in a new block of nums
 			linenum = 0;
+			//reset the matrix
+			for(int a = 0; a<G.getVertices(); a++)
+			    {
+				for(int d = 0; d<G.getVertices(); d++)
+				    {
+					c[a][d] = false;
+				    }
+			    }
+
 			read = b.readLine();
 		    }
 	    }
+	p = new Population(poplist);
 	}catch(Exception e)
 	    {}
 	return p;
@@ -167,12 +190,13 @@ public class AdjMatrixGraph {
 	Population pop = null;
 	if(!br.equals(null))
 	    {
-		pop = graphLoad(br); //load in the data from the file
+		pop = graphLoad(br, G); //load in the data from the file
+		System.out.println(pop);
 		try{
 		    data.close();
 		}catch(Exception e)
 		    {}
-		System.exit(1);
+		System.exit(1); //for testing purposes, no need to do all the other stuff yet
 	    }
 	
 	else{
