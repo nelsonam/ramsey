@@ -1,7 +1,12 @@
 Computing Ramsey Numbers with Genetic Algorithms
 ==============
 
-to work on
+current progress
+--------
+- working on loading in graph info from file instead of making random colorings each time
+- this allows us to whittle down the possible colorings and use ones that we have preprocessed, in order to get more "probable" solutions each time
+
+backburner stuff
 -------
 - IMPORTANT
   - instead of using the same set of edges to check fitness each time, generate `x` random ones
