@@ -3,8 +3,8 @@ Computing Ramsey Numbers with Genetic Algorithms
 
 current progress
 --------
-- working on loading in graph info from file instead of making random colorings each time
-- this allows us to whittle down the possible colorings and use ones that we have preprocessed, in order to get more "probable" solutions each time
+- we can load files now
+- implement new fitness functions (below) to further test data sets
 
 backburner stuff
 -------
