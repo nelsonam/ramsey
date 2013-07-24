@@ -1,85 +1,24 @@
 Computing Ramsey Numbers with Genetic Algorithms
 ==============
 
-to work on
+This program uses genetic algorithm techniques to make progress in computing Ramsey numbers for large graphs such as K_43. Ideas for further implementation can be found in IDEAS.md
+
+Usage
+---------
+run `java AdjMatrixGraph x` where `x` is the size of the complete graph you wish to test. To run tests on K_43 (a complete graph on 43 vertices), run `java AdjMatrixGraph 43`.
+
+The program spits out a data file at the end of its first run, you can plug these values back into the program to get more and more accurate answers. When it asks for a data file at startup, simply type in the name of the data file at the prompt. I will work on making this a command line argument in the future.
+
+Purpose
 -------
-- IMPORTANT
-  - instead of using the same set of edges to check fitness each time, generate `x` random ones
-  - http://stackoverflow.com/questions/7918806/finding-n-th-permutation-without-computing-others
--  if there is a graph that gets a 0 fitness (no same colored cliques), save that graph somehow for further inspection
--  change fitness function so it gets `x` random perms instead of the same every time
--  do something with the  "0" graphs
--  run "0" graphs through another set of test data
-  - 0 2 4 6 8
-  - 1 3 5 7 9
-  - 2 4 6 8 10
-  - 3 5 7 9 11
-  - 4 6 8 10 12
-  - ...
-  - 34 36 38 40 42
-- OR:
-  - 0 1 3 5 7
-  - 0 2 4 6 8
-  - 0 3 5 7 9
-  - ...
-  - 1 2 4 6 8
-  - 1 3 5 7 9
-  - ...
-  - like the original fit function, but go up by 2 not 1
 
+The program goes through and attempts to find iterations (colorings) of the graph that do not have any 5-cliques. This value is hardcoded at the moment for testing purposes, future versions will feature the ability to check for different sized cliques. 
 
-the graph algorithm (McRae's idea)
---------------
+Please note, that since this program checks only a subset of edges on each iteration, that just because the program reports all zeroes this is not necessarily the case. To truly verify the Ramsey number of a graph, an exhaustive search is necessary. While this is very intensive, my program allows you to narrow down the possibilities widely so you are left with "probable" graphs to test.
 
-1. make a random permutation of the vertices (eg, 3 6 8 23 41 22 11 ...)
-2. then insert them into a binary tree 
+For instance, if one is able to show that there is a coloring of a K_43 graph with no 5-cliques, we will have proven the value of R(5,5) = 43. (Which is a really big deal, in case you didn't know.)
 
-```java
-for(int i=0; i<vertices; i++)
-{
-    leftcount=0
-    rightcount=0
-    t=insert(t,nodeArray[perm[i]]) //make a node array with Node objects of all the vertices ahead of time
-    if(leftcount>4 || rightcount>4)
-    cliques++;
-}
-```
+Contributions
+-------------
 
-
-if we have `leftcount` or `rightcount` > 4 (for R(5,5)) then that means that a 5 clique has been found somewhere. 
-
-here is the insert code:
-
-```java
-public Node insert(Node t, Node newOne)
-{
-  if(t==null)
-  {
-    leftcount++;
-    rightcount++;
-    return newOne;
-  }
-  else if(colorMatrix[t.value][newOne.value])
-  {
-    leftcount++;
-    insert(t.left, newOne);
-    return t;
-  }
-  else
-  {
-    rightcount++;
-    insert(t.right,newOne);
-    return t;
-  }
-}
-```
-
-use Node objects for inserting into the binary tree:
-```java
-public Node
-{
-  Node leftChild;
-  Node rightChild;
-  int value; //the number of the node (eg, vertex 9)
-}
-```
+Contributions and comments are welcome. See the file IDEAS.md for what I'm currently working on, and open an issue if you have an idea of something to add or change. Thanks for reading!
